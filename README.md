@@ -2,14 +2,13 @@
 
 This repository provides an **end-to-end guide** on converting raw data into a **Machine Learning (ML) model** and serving it as a **FastAPI microservice**.  
 
-## 📖 Table of Contents  
-- [📌 Overview](#-overview)  
+## 📖 Table of Contents    
 - [📊 Data Preparation](#-data-preparation)  
 - [🤖 Train the ML Model](#-train-the-ml-model)  
 - [⚡ Build FastAPI Microservice](#-build-fastapi-microservice)  
 - [🛠️ Run & Test API](#-run--test-api)  
 - [🚀 Deployment](#-deployment)  
-- [📜 License](#-license)  
+
 
 ---
 
