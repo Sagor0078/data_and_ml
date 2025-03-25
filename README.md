@@ -20,3 +20,6 @@ This project demonstrates how to:
 ✅ Create a **FastAPI microservice** to serve predictions  
 ✅ Test the API using **cURL/Postman**  
 ✅ Deploy the service using **Docker, AWS, GCP, or Heroku**
+
+
+### continue..
