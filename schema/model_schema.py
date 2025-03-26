@@ -4,8 +4,6 @@ from pydantic import BaseModel
 from typing import Literal
 
 class ChurnPrediction(BaseModel):
-
-    
     gender: Literal["male", "female"]
     seniorcitizen: int
     partner: Literal["yes", "no"]
