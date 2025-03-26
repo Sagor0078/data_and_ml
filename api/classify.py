@@ -1,19 +1,24 @@
+import os
 import pickle
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Dict
 from fastapi.responses import JSONResponse
+from dotenv import load_dotenv
 
-# Load the model and vectorizer
-model_file = 'model_C=1.0.bin'
+dotenv_path = os.path.join(os.path.dirname(__file__), "../config/.env")
+load_dotenv(dotenv_path)
 
-with open(model_file, 'rb') as f_in:
+model_path = os.getenv("MODEL_PATH")
+
+if not model_path:
+    raise ValueError("MODEL_PATH is not set in the .env file")
+
+# Load the model
+with open(model_path, 'rb') as f_in:
     dv, model = pickle.load(f_in)
 
-# Define FastAPI app
 app = FastAPI()
 
-# Define input data structure using Pydantic
 class Customer(BaseModel):
     gender: str
     seniorcitizen: int
@@ -35,14 +40,11 @@ class Customer(BaseModel):
     monthlycharges: float
     totalcharges: float
 
-# Prediction route
 @app.post("/predict")
 async def predict(customer: Customer):
-    # Convert the customer data to the appropriate format for the model
     customer_dict = customer.dict()
     X = dv.transform([customer_dict])
     
-    # Predict the churn probability
     y_pred = model.predict_proba(X)[0, 1]
     churn = y_pred >= 0.5
 
@@ -53,6 +55,3 @@ async def predict(customer: Customer):
 
     return JSONResponse(content=result)
 
-# Run the application (use `uvicorn` for production)
-# If running locally for development, use `uvicorn`:
-# uvicorn app_name:app --reload
